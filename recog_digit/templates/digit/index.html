@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" href="{% static 'recog_digit/style.css' %}">
+
+	<title>Handwritten Digit Recognition</title>
+</head>
+
+<body>
+    <h1 class=""><b>Write a Digit</h1>
+
+		<div class="centered">
+			<canvas id="canvas" width="128" height="128" style="border: black solid;"></canvas>
+		</div>
+
+		<div class="centered">
+			<input type="button" class="myButton" value="Predict" style="">
+			<input type="button" id="clearButton" value="Clear" style="" >
+
+
+			<form action ="http://127.0.0.1:8000/update" method="POST">
+			{% csrf_token %}
+
+
+
+			</form>
+			</div>
+		</div>
+
+		<div class="centered">
+			<h1 id="result"></h1>
+		</div>
+
+
+  		<script src="{% static 'recog_digit/jquery-3.2.0.min.js' %}"></script>
+	    <script src="{% static 'recog_digit/index.js' %}"></script>
+	    <script type="text/javascript">
+	   		$(".myButton").click(function(){
+	   			$('#result').text('  Predicting...');
+	   			var canvasObj = document.getElementById("canvas"); <!-- canvas object saves the canvas>
+	   			var img = canvasObj.toDataURL('image/png');
+	   			console.log("printing img", img)
+	   			$.ajax({
+	   				type: "POST",
+	   				url:"/digit/", <!-- this api is implemented in the backend >
+	   				data: img,
+	   				success: function(data){ <!-- return of the api is taken as the function(data) >
+	   					$('#result').text('Result: ' + data);
+	   				}
+	   			});
+
+	   		});
+	   </script>
+</body>
+</html>
