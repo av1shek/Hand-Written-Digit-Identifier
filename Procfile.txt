@@ -1,1 +1,1 @@
-web: gunicorn mlapps.wsgi
+web: gunicorn mlapps.wsgi --log-file -
