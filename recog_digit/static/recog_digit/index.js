@@ -1,4 +1,5 @@
-(function() {
+window.addEventListener('load', function(){
+
 	var canvas = document.querySelector("#canvas");
 	var context = canvas.getContext("2d");
 	canvas.width = 280;
@@ -13,48 +14,49 @@
     context.lineJoin = context.lineCap = 'round';
 
 	debug();
+	var isIdle = true;
+  function drawstart(event) {
+    context.beginPath();
+    context.moveTo(event.pageX - canvas.offsetLeft, event.pageY - canvas.offsetTop);
+    context.color = "black";
+	context.lineWidth = 30;
+    context.lineJoin = context.lineCap = 'round';
 
-	canvas.addEventListener("mousemove", function(e) {
-		lastMouse.x = Mouse.x;
-		lastMouse.y = Mouse.y;
+    isIdle = false;
+  }
+  function drawmove(event) {
+    if (isIdle) return;
+    context.lineTo(event.pageX - canvas.offsetLeft, event.pageY - canvas.offsetTop);
+    context.stroke();
+  }
+  function drawend(event) {
+    if (isIdle) return;
+    drawmove(event);
+    isIdle = true;
+  }
+  function touchstart(event) { drawstart(event.touches[0]) }
+  function touchmove(event) { drawmove(event.touches[0]); event.preventDefault(); }
+  function touchend(event) { drawend(event.changedTouches[0]) }
 
-		Mouse.x = e.pageX - this.offsetLeft-15;
-		Mouse.y = e.pageY - this.offsetTop-15;
-	}, false);
+  canvas.addEventListener('touchstart', touchstart, false);
+  canvas.addEventListener('touchmove', touchmove, false);
+  canvas.addEventListener('touchend', touchend, false);        
 
-	canvas.addEventListener("mousedown", function(e) {
-		canvas.addEventListener("mousemove", onPaint, false);
-	}, false);
+  canvas.addEventListener('mousedown', drawstart, false);
+  canvas.addEventListener('mousemove', drawmove, false);
+  canvas.addEventListener('mouseup', drawend, false);
 
-	canvas.addEventListener("mouseup", function() {
-		canvas.removeEventListener("mousemove", onPaint, false);
-	}, false);
+  
+  function debug() {
+	$("#clearButton").on("click", function() {
+		context.clearRect( 0, 0, 280, 280 );
+		context.fillStyle="white";
+		context.fillRect(0,0,canvas.width,canvas.height);
+	});
+}
+}, false);
 
-	var onPaint = function() {
-		context.lineWidth = context.lineWidth;
-		context.lineJoin = "round";
-		context.lineCap = "round";
-		context.strokeStyle = context.color;
 
-		context.beginPath();
-		context.moveTo(lastMouse.x, lastMouse.y);
-		context.lineTo(Mouse.x,Mouse.y );
-		context.closePath();
-		context.stroke();
-	};
+	
 
-	function debug() {
-		$("#clearButton").on("click", function() {
-			context.clearRect( 0, 0, 280, 280 );
-			context.fillStyle="white";
-			context.fillRect(0,0,canvas.width,canvas.height);
-		});
-	}
-}());
 
-// this prevents the site from idling
-// since it takes the flask app about 20 seconds to start up again
-/*var http = require("http");
-setInterval(function() {
-    http.get("http://mnist-flask-app.herokuapp.com");
-}, 300000); // every 5 minutes (300000)*/
