@@ -10,7 +10,7 @@ window.addEventListener('load', function(){
 	context.fillStyle = "white";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	context.color = "black";
-	context.lineWidth = 30;
+	context.lineWidth = 15;
     context.lineJoin = context.lineCap = 'round';
 
 	debug();
@@ -19,7 +19,7 @@ window.addEventListener('load', function(){
     context.beginPath();
     context.moveTo(event.pageX - canvas.offsetLeft, event.pageY - canvas.offsetTop);
     context.color = "black";
-	context.lineWidth = 30;
+	context.lineWidth = 15;
     context.lineJoin = context.lineCap = 'round';
 
     isIdle = false;

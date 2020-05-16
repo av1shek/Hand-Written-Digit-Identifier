@@ -3,7 +3,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name="digit"),
+    path('', views.ann, name="digit"),
+    path('cnn/', views.cnn, name="cnn"),
 
 ]
 

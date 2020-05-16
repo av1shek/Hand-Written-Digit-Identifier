@@ -10,6 +10,8 @@
 </head>
 
 <body>
+
+
     <h1 class=""><b>Write a Digit</h1>
 
 		<div class="centered">
@@ -17,17 +19,9 @@
 		</div>
 
 		<div class="centered">
-			<input type="button" class="myButton" value="Predict" style="">
+			<input type="button" class="myButton" id="btnANN" value="Predict(ANN)" style="">
+			<input type="button" class="myButton" id="btnCNN" value="Predict(CNN)" style="">
 			<input type="button" id="clearButton" value="Clear" style="" >
-
-
-			<form action ="http://127.0.0.1:8000/update" method="POST">
-			{% csrf_token %}
-
-
-
-			</form>
-			</div>
 		</div>
 
 		<div class="centered">
@@ -37,15 +31,31 @@
 
   		<script src="{% static 'recog_digit/jquery-3.2.0.min.js' %}"></script>
 	    <script src="{% static 'recog_digit/index.js' %}"></script>
-	    <script type="text/javascript">
-	   		$(".myButton").click(function(){
+
+<script type="text/javascript">
+	   		$("#btnANN").click(function(){
 	   			$('#result').text('  Predicting...');
 	   			var canvasObj = document.getElementById("canvas"); <!-- canvas object saves the canvas>
 	   			var img = canvasObj.toDataURL('image/png');
-	   			console.log("printing img", img)
+
 	   			$.ajax({
 	   				type: "POST",
 	   				url:"/digit/", <!-- this api is implemented in the backend >
+	   				data: img,
+	   				success: function(data){ <!-- return of the api is taken as the function(data) >
+	   					$('#result').text('Result: ' + data);
+	   				}
+	   			});
+
+	   		});
+	   		$("#btnCNN").click(function(){
+	   			$('#result').text('  Predicting...');
+	   			var canvasObj = document.getElementById("canvas"); <!-- canvas object saves the canvas>
+	   			var img = canvasObj.toDataURL('image/png');
+
+	   			$.ajax({
+	   				type: "POST",
+	   				url:"/digit/cnn/", <!-- this api is implemented in the backend >
 	   				data: img,
 	   				success: function(data){ <!-- return of the api is taken as the function(data) >
 	   					$('#result').text('Result: ' + data);
