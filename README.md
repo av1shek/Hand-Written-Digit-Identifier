@@ -1,7 +1,8 @@
 ## Hand Written Digit Identifier from Scratch
-A Django web app based on machine learning Artificial Neural Network (ANN) model from scratch (using some basic modules like numpy) and trained over MNIST handwritten digit train dataset and has an accuraccy of about 97% on MNIST test data set.<br>
-Trained weights are stored in ```model_param.pkl``` file.<br>
+A Django web app to identify hand written Digit using machine learning model and trained over MNIST handwritten digit training dataset and has an accuraccy of 97.6% for ANN model and 98.3% for CNN model on MNIST test data set.<br>
+ANN model is implemented from scratch while CNN model is implemented using Pytorch.<br>
+Trained weights are stored in ```model_param.pkl``` and ```my_checkpoint.pth.tar``` file.<br>
 #### [Click Here](https://mlapps.herokuapp.com/digit) to visit the site.
-Some limitations of this app observed by me<br>
-i)  Less efficiency for digit 7.<br>
-ii) Works well when digits are drawn in mid of canvas with full size.
+Some observations:<br>
+i) Works well when digits are drawn in mid of canvas with full size.<br>
+ii) CNN model gives better performance than ANN (as expected). 
