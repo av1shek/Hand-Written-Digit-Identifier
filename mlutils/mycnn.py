@@ -1,7 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -43,6 +41,23 @@ class ConvNet(nn.Module):
         x = F.relu(self.fc2(x))  # -> n, 84
         x = self.fc3(x)  # -> n, 10
         return x
+    
+    def identify_num(self, img_array):
+        # Invert the color
+        img_data = 255.0 - img_array.reshape(784)
+        img_data = (img_data / 255.0 * 0.99)   # Scale the data
+        img_data = transform(img_data.reshape(28, 28))
+        img_data = img_data[None, :, :, :]
+        img_data = img_data.float()
+
+        # query the network
+        with torch.no_grad():
+            outputs = self.forward(img_data)
+            _, predicted = torch.max(outputs, 1)
+            label = predicted.item()
+        print("Model says ", label)
+        return label
+
 
 # Hyper-parameters
 num_epochs = 6
@@ -92,7 +107,6 @@ if __name__ == '__main__':
 
             if (i + 1) % 1000 == 0:
                 print(f'Epoch [{epoch + 1}/{num_epochs}], Step [{i + 1}/{n_total_steps}], Loss: {loss.item():.4f}')
-                break
 
     print('Finished Training')
 
@@ -123,5 +137,11 @@ if __name__ == '__main__':
         for i in range(10):
             acc = 100.0 * n_class_correct[i] / n_class_samples[i]
             print(f'Accuracy of {classes[i]}: {acc} %')
+
+
+    torch.save({
+    'state_dict': model.state_dict(),
+    'optimizer' : optimizer.state_dict(),
+    }, 'CNN_params.pth.tar')
 
 
