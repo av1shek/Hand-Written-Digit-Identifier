@@ -16,37 +16,44 @@
 
 	<div class="container mainDiv">
 		<div class="childDiv">
-			<h1 class=""><b>Write a Digit</h1>
+			<h1 class="">Upload Image</h1>
 
 			<div class="centered">
-				<canvas id="canvas" width="128" height="128" style="border: black solid;"></canvas>
+				<input type="file" name="picture" id="picture" />
 			</div>
 
 			<div class="centered">
 				<input type="button" class="myButton" id="btnANN" value="Predict(ANN)" style="">
 				<input type="button" class="myButton" id="btnCNN" value="Predict(CNN)" style="">
-				<input type="button" id="clearButton" value="Clear" style="" >
 			</div>
 
 			<div class="centered">
 				<h1 id="result"></h1>
 			</div>
 			<div class="centered">
-				<p>Upload image ?  <a href="image/"> click here </a></p>
+				<p><b>Write on screen ? <a href="/digit"> click here </a></b></p>
 			</div>
 		</div>
 	</div>
 	
 
 <script src="{% static 'recog_digit/jquery-3.2.0.min.js' %}"></script>
-<script src="{% static 'recog_digit/index.js' %}"></script>
 <script type="text/javascript">
+
+	const fileInput = document.querySelector("input");
+	let imgData;
+	fileInput.addEventListener("change", (e) => {
+		file = fileInput.files[0];
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			imgData = reader.result;
+		};
+		reader.readAsDataURL(file);
+	});
 
 	// ANN Post request
 	$("#btnANN").click(function(){
 		$('#result').text('  Predicting...');
-		var canvasObj = document.getElementById("canvas"); <!-- canvas object saves the canvas>
-	   	var imgData = canvasObj.toDataURL('image/png');
 		$.ajax({
 			type: "POST",
 			url:"/digit/", <!-- this api is implemented in the backend >
@@ -61,8 +68,6 @@
 	// CNN Post request
 	$("#btnCNN").click(function(){
 		$('#result').text('  Predicting...');
-		var canvasObj = document.getElementById("canvas"); <!-- canvas object saves the canvas>
-	   	var imgData = canvasObj.toDataURL('image/png');
 		$.ajax({
 			type: "POST",
 			url:"/digit/cnn/", <!-- this api is implemented in the backend >
