@@ -54,3 +54,8 @@ def cnn(request):
         label = cnn_model.identify_num(img_array)
         return HttpResponse(label)
     return render(request, 'digit/index.html')
+
+
+@csrf_exempt
+def image(request):
+    return render(request, 'digit/image_upload.html')
