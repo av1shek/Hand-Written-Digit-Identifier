@@ -23,8 +23,9 @@ Trained weights are stored in ```ANN_params.pkl``` and ```CNN_params.pth.tar``` 
 This web app is deployed on Heroku,  ### [Click Here](https://mlapps.herokuapp.com/digit) to visit the site.
 
 ### Screenshots
-<img url="Screenshots/Screenshot1.png"></img>
-![plot](./Screenshots/Screenshot1.png)![plot](./Screenshots/Screenshot2.png)
+
+
+![plot](./Screenshots/Screenshot1.png) ![plot](./Screenshots/Screenshot2.png) ![plot](./Screenshots/Screenshot3.png)
 
 Some observations:<br>
 i) Works well when digits are drawn in mid of canvas with full size.<br>
