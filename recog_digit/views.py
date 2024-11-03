@@ -30,7 +30,7 @@ def parseImage(imgData):
     encoded_image = imgstr
     decoded_image = base64.b64decode(encoded_image)
     img = Image.open(BytesIO(decoded_image)).convert('LA')      # image is (280, 280)
-    img = img.resize(dimensions, Image.ANTIALIAS)               # image is (28, 28)
+    img = img.resize(dimensions, Image.LANCZOS)               # image is (28, 28)
     pixels = np.asarray(img, dtype='uint8')                 # pixels.shape == (28, 28, 2)
     pixels = pixels[:, :, 0]
     # img = Image.fromarray(pixels)         # to display the img
