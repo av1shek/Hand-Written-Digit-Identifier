@@ -21,7 +21,7 @@ It is implemented using two differnet algorithm ANN and CNN
 
 Trained weights are stored in ```ANN_params.pkl``` and ```CNN_params.pth.tar``` file.<br>
 This web app is deployed on Heroku,  
-### [Click Here](https://mlapps.herokuapp.com/digit) to visit the site.
+### [Click Here](https://av1shek-identifyhandwrittendigit.hf.space) to visit the site.
 
 
 ### Screenshots
@@ -40,15 +40,15 @@ ii) CNN model gives better performance than ANN (as expected).
 There is only two endpoints
 
 ```
-i)  https://mlapps.herokuapp.com/digit/
-ii) https://mlapps.herokuapp.com/digit/cnn/
+i)  https://av1shek-identifyhandwrittendigit.hf.space/digit/
+ii) https://av1shek-identifyhandwrittendigit.hf.space/digit/cnn/
 ```
 Both accepts post request with Base64-encoded data along with Data-URL declaration of image and returns a single digit integer (label of image) as a response.
 
 ### How to use these APIs ?
 #### Syntax
 ```Javascript
-fetch('https://mlapps.herokuapp.com/digit/cnn/', {
+fetch('https://av1shek-identifyhandwrittendigit.hf.space/digit/cnn/', {
     method: 'POST', 
     headers: { 'Content-Type': 'application/json', },
     body: imgData, // Base64-encoded image data
@@ -86,9 +86,9 @@ fetch('https://mlapps.herokuapp.com/digit/cnn/', {
     
     btn.addEventListener('click', () => {
         result.innerText = '  Predicting...';
-        // CNN URL - https://mlapps.herokuapp.com/digit/cnn/
-        // ANN URL - https://mlapps.herokuapp.com/digit/
-        fetch('https://mlapps.herokuapp.com/digit/cnn/', {
+        // CNN URL - https://av1shek-identifyhandwrittendigit.hf.space/digit/cnn/
+        // ANN URL - https://av1shek-identifyhandwrittendigit.hf.space/digit/
+        fetch('https://av1shek-identifyhandwrittendigit.hf.space/digit/cnn/', {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json', },
             body: imgData,
