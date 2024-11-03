@@ -97,7 +97,7 @@ class ArtificialNeuralNetwork:
         img_data = (img_data / 255.0 * 0.99) + 0.01  # Scale the data
 
         # plot image
-        matplotlib.pyplot.imshow(img_data.reshape(28,28), cmap='Greys', interpolation='None')
+        # matplotlib.pyplot.imshow(img_data.reshape(28,28), cmap='Greys', interpolation='None')
 
         # query the network
         outputs = self.query(img_data)
